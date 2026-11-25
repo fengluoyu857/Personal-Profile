@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Figtree 变量字体，本地自托管：不依赖 fonts.googleapis.com（国内常被阻断） */
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/figtree-var.woff2") format("woff2");
+}
+
+:root {
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+  font-family: "Figtree", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  background: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #000;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background: #000;
+  color: #fff;
+  font-family: "Figtree", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+a {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.45);
+  }
+}
+
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 420ms var(--ease-spring);
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.mobile-menu-grid {
+  transition: grid-template-rows 420ms var(--ease-spring);
+}
+
+.role-link {
+  transition:
+    opacity 220ms ease,
+    transform 420ms var(--ease-spring);
+}
+
+.role-link:hover,
+.role-link:focus-visible {
+  transform: translateX(4px);
+}
+
+.dot-pulse {
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+
+.reveal-up,
+.reveal-right {
+  opacity: 0;
+}
+
+.reveal-up.is-revealed {
+  animation: revealUp 0.9s var(--ease-spring) forwards;
+}
+
+.reveal-right.is-revealed {
+  animation: revealRight 0.9s var(--ease-spring) forwards;
+}
+
+.reveal-delay.is-revealed {
+  animation-delay: 0.08s;
+}
+
+.cta-button {
+  position: relative;
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #fff;
+  padding: 13px 21px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  text-decoration: none;
+  text-transform: lowercase;
+  transition:
+    color 420ms var(--ease-spring),
+    border-color 420ms var(--ease-spring);
+}
+
+.cta-button::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background: #f598f2;
+  transform: translateY(101%);
+  transition: transform 520ms var(--ease-spring);
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  border-color: #f598f2;
+  color: #000;
+}
+
+.cta-button:hover::before,
+.cta-button:focus-visible::before {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal-up,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+  }
+}
